@@ -2,7 +2,7 @@
 
 
 
-  background-color: rgb(98, 97, 97);
+  background-color: rgb(255, 255, 255);
   margin: 0;
   padding: 20px;
   height: 100vh;
@@ -10,6 +10,47 @@
 }
 
 
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  min-width: 250px;
+  background-color: lightblue;
+  
+  border-right: 1px solid #ccc;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.link {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  text-decoration: none;
+  color: black;
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: normal; /* Default state */
+}
+
+.link.active {
+  font-weight: bold; /* Active state */
+}
+
+.link:hover {
+  color: #454545;
+  background-color: #00000029;
+}
+
+.dash-image{
+  height: 150px;
+}
+ 
 
 
 

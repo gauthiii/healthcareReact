@@ -17,19 +17,26 @@ function Patients() {
         };
 
         fetchData();
-    }, []);
+    }, [patients]);
+
+    const cellStyle = {
+        minWidth: '250px', // Adjust this width as needed
+        backgroundColor: 'lightblue', 
+        color: 'darkblue', 
+        border: '1px solid grey'
+    };
 
     return (
-        <div style={{ }}>
-            <Typography variant="h4" gutterBottom sx={{color:"white",textAlign:"center",fontFamily:"Poppins",fontWeight:500}}>
+        <div style={{ margin: '20px'}}>
+            <Typography variant="h4" gutterBottom sx={{color:"black", fontFamily:"Poppins",fontWeight:700,marginBottom:5}}>
                 Patients List
             </Typography>
             <TableContainer component={Paper} sx={{border:2 }}>
-                <Table className='tab' sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table className='tab' sx={{ maxWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {["Patient ID", "Name", "Birth Date", "Medical History", "Contact", "Address", "Gender", "Allergies", "Current Medications", "Height", "Weight", "BMI", "Blood Type", "Primary Diagnosis", "Insurance Provider", "Policy Number", "Emergency Contact Name","Emergency Contact Relation","Emergency Contact Number","Appointments","Prescriptions","Bills"].map(header => (
-                                <TableCell key={header} sx={{ minWidth: '200px', backgroundColor: '#c2cace', color: 'black', fontWeight:'bold', border: '1px solid #ddd' }}>
+                                <TableCell key={header} sx={{ ...cellStyle, fontWeight:'bold', backgroundColor: '#c2cace', color: 'black',fontFamily:"Poppins" }}>
                                     {header}
                                 </TableCell>
                             ))}
@@ -37,12 +44,9 @@ function Patients() {
                     </TableHead>
                     <TableBody>
                         {patients.map((patient) => (
-                            <TableRow
-                                key={patient.id}
-                                sx={{ '& > *': { border: '1px solid #ccc' } }}
-                            >
+                            <TableRow key={patient.id} sx={{ '& > *': cellStyle }}>
                                 {Object.values(patient).map((value, index) => (
-                                    <TableCell key={index} sx={{ minWidth: '200px', backgroundColor: 'lightblue', color: 'darkblue', border: '1px solid #ddd' }}>
+                                    <TableCell key={index} sx={{...cellStyle,fontFamily:"Poppins"}}>
                                         {value}
                                     </TableCell>
                                 ))}
