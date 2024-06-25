@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import { prescriptions_api } from './App';
 
 function Prescriptions() {
     const [prescriptions, setPrescriptions] = useState([]);
@@ -8,7 +9,7 @@ function Prescriptions() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8081/prescriptions');
+                const response = await axios.get(`${prescriptions_api}/prescriptions`);
                 setPrescriptions(response.data);
 
                 console.log(prescriptions)

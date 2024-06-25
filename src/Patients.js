@@ -2,22 +2,35 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import './App.css';
+import { patients_api } from './App';
 
 function Patients() {
     const [patients, setPatients] = useState([]);
+    const [err,setErr] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/patients');
+
+                 // Encode your username and password
+            const username = 'user';
+            const password = 'b7bb94f6-4f72-482a-96c9-741cc9d727ca';
+            const basicAuth = 'Basic ' + btoa(username + ':' + password);
+
+            const response = await axios.get(`${patients_api}/patients`, {
+                headers: { Authorization: basicAuth }
+            });
+               
                 setPatients(response.data);
             } catch (error) {
                 console.error('Error fetching data: ', error);
+                setErr(error.message);
+                console.log ("err: ",err)
             }
         };
 
         fetchData();
-    }, [patients]);
+    }, [patients,err]);
 
     const cellStyle = {
         minWidth: '250px', // Adjust this width as needed
@@ -55,6 +68,8 @@ function Patients() {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            {err!=='' &&(<div style={{margin:'20px'}}>Unable to fetch Patient Data due to {err}</div>)}
         </div>
     );
 }
