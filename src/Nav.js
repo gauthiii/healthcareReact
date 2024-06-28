@@ -1,16 +1,18 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserNurse, faFileMedical, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUserNurse, faFileMedical, faRightFromBracket,faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 
 import doc from './doc.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-function Nav({ isLoggedIn, setIsLoggedIn }) {
+function Nav({ isLoggedIn, setIsLoggedIn, user,setUser }) {
 
   const navigate = useNavigate(); // Use useNavigate hook
 
   const handleLogout = () => {
     setIsLoggedIn(false); // Update login state on logout
     // Add logic for any logout specific actions (e.g., clear user data)
+    localStorage.removeItem("authToken");
+    setUser(null);
     navigate('/login'); // Redirect to login page after logout
   };
 
@@ -30,6 +32,8 @@ function Nav({ isLoggedIn, setIsLoggedIn }) {
       <div style={{ textAlign: "center", fontWeight: 900, fontSize: 16, fontFamily: "Poppins", marginBottom: "40px" }}>
         MY DASHBOARD SCREEN
       </div>
+      
+      
  
 
       <NavLink to="/" className="link" activeClassName="active">
@@ -41,9 +45,14 @@ function Nav({ isLoggedIn, setIsLoggedIn }) {
       <NavLink to="/prescriptions" className="link" activeClassName="active">
         <FontAwesomeIcon icon={faFileMedical} style={{ fontSize: "15px", marginRight: "26px", marginLeft: "40px" }} /> Prescriptions
       </NavLink>
+      <NavLink to="/appointments" className="link" activeClassName="active">
+        <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: "15px", marginRight: "22px", marginLeft: "40px" }} /> Appointments
+      </NavLink>
 
       {/* Conditionally render logout button */}
       {isLoggedIn && logoutButton}
+
+      
     </div>
   );
 }

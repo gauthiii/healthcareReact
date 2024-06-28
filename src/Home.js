@@ -1,6 +1,9 @@
-import React from 'react';
+import React from 'react'; 
 
-function Home() {
+
+function Home({authToken,user}) {
+   
+    
     return (
         <div style={{ padding: '20px', fontFamily:"Poppins" }}>
             <h1>Welcome to the Health System Dashboard</h1>
@@ -13,8 +16,13 @@ function Home() {
             <p style={{ textAlign: 'justify', fontSize: '18px' }}>
                 Everyone deserves access to basic healthcare needs and providing this can prevent death and disability, and is crucial in maintaining the basic quality and dignity of life. A well-functioning healthcare system can significantly improve the well-being of a nation.
             </p>
+            <p style={{ textAlign: 'justify', fontSize: '18px' }}>
+                You have been authorized by <strong>Google OAuth</strong> to access this website!
+            </p>
+            {/* {authToken}<br/>
+            {JSON.stringify(user)} */}
             <footer style={{ textAlign: 'center', marginTop: '30vh', fontSize: '16px'  }}>
-                © {new Date().getFullYear()} Gautham Vijayaraj. All rights reserved.
+                © {new Date().getFullYear()} Gautham Vijayaraj. All rights reserved.<br/>
             </footer>
         </div>
     );

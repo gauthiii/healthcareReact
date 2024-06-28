@@ -9,7 +9,16 @@ function Prescriptions() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${prescriptions_api}/prescriptions`);
+
+                      // Encode your username and password
+            const username = 'user';
+            // const password = 'b7bb94f6-4f72-482a-96c9-741cc9d727ca';
+            const password = 'prescriptions';
+            const basicAuth = 'Basic ' + btoa(username + ':' + password);
+
+                const response = await axios.get(`${prescriptions_api}/prescriptions`, {
+                headers: { Authorization: basicAuth }
+            });
                 setPrescriptions(response.data);
 
                 console.log(prescriptions)

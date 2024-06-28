@@ -85,21 +85,42 @@
   margin-bottom: 20px;
 }
 
-.gbut {
-  background-color: #007bff; /* Bootstrap primary blue */
+.gbut{
+
+  width:150px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid black;
+  outline: none;
+  background-color: black;
   color: white;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.gbut:hover {
-  background-color: #0056b3; /* Darker blue */
+.gbut:hover{
+  background-color: #227094;
+  color: black;
+  font-weight: bold;
 }
 
+.card {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+
+}
+
+.card h5 {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
 
 
 
