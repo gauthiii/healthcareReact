@@ -16,9 +16,12 @@ function Home({authToken,user}) {
             <p style={{ textAlign: 'justify', fontSize: '18px' }}>
                 Everyone deserves access to basic healthcare needs and providing this can prevent death and disability, and is crucial in maintaining the basic quality and dignity of life. A well-functioning healthcare system can significantly improve the well-being of a nation.
             </p>
-            <p style={{ textAlign: 'justify', fontSize: '18px' }}>
+           {user?.iss==="https://accounts.google.com" && <p style={{ textAlign: 'justify', fontSize: '18px' }}>
                 You have been authorized by <strong>Google OAuth</strong> to access this website!
-            </p>
+            </p>}
+            {user?.iss!=="https://accounts.google.com" && <p style={{ textAlign: 'justify', fontSize: '18px' }}>
+                 Hello <strong>Admin</strong>, you can access this website!
+            </p>}                   
             {/* {authToken}<br/>
             {JSON.stringify(user)} */}
             <footer style={{ textAlign: 'center', marginTop: '30vh', fontSize: '16px'  }}>

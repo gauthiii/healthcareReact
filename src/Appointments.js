@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import './App.css';
-import { appointments_api } from './App';
+import { appointments_api,api_username,appointments_api_pwd } from './App';
 
 function Appointments() {
     const [appointments, setAppointments] = useState([]);
@@ -12,11 +12,8 @@ function Appointments() {
         const fetchData = async () => {
             try {
 
-                 // Encode your username and password
-            const username = 'user';
-            // const password = 'b7bb94f6-4f72-482a-96c9-741cc9d727ca';
-            const password = 'appointments';
-            const basicAuth = 'Basic ' + btoa(username + ':' + password);
+            
+            const basicAuth = 'Basic ' + btoa(api_username + ':' + appointments_api_pwd);
 
             const response = await axios.get(`${appointments_api}/appointments`, {
                 headers: { Authorization: basicAuth }

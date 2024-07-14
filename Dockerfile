@@ -25,4 +25,10 @@ RUN npm install -g serve
 CMD ["serve", "-s", "build", "-l", "5000"]
 
 # Inform Docker that the container is listening on the specified port at runtime.
-EXPOSE 5000
+EXPOSE 3000
+
+
+# docker build -t health-ui .
+# docker run -d -p 3000:3000 health-ui
+# docker build --platform linux/amd64/v3 -t health-ui .
+# burpe acct pwd jGE5|q8~M4*86gHwJ6zyR6?4J?|y72^}

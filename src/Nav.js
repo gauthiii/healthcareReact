@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserNurse, faFileMedical, faRightFromBracket,faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUserNurse, faFileMedical, faRightFromBracket,faCalendarCheck,faBell } from '@fortawesome/free-solid-svg-icons';
 
 import doc from './doc.png';
 import { NavLink, useNavigate } from 'react-router-dom';
+
 
 function Nav({ isLoggedIn, setIsLoggedIn, user,setUser }) {
 
@@ -18,7 +19,7 @@ function Nav({ isLoggedIn, setIsLoggedIn, user,setUser }) {
 
   const logoutButton = (
     <div className="link" style={{cursor:'pointer'}} onClick={handleLogout}>
-      <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: "15px", marginRight: "26px", marginLeft: "40px" }} />
+      <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: "15px", marginRight: "26px", marginLeft: "25px" }} />
       Log Out
     </div>
   );
@@ -35,19 +36,24 @@ function Nav({ isLoggedIn, setIsLoggedIn, user,setUser }) {
       
       
  
-
+      
       <NavLink to="/" className="link" activeClassName="active">
-        <FontAwesomeIcon icon={faHome} style={{ fontSize: "15px", marginRight: "20px", marginLeft: "40px" }} /> Home
+        <FontAwesomeIcon icon={faHome} style={{ fontSize: "15px", marginRight: "20px", marginLeft: "25px" }} /> Home
       </NavLink>
       <NavLink to="/patients" className="link" activeClassName="active">
-        <FontAwesomeIcon icon={faUserNurse} style={{ fontSize: "15px", marginRight: "24px", marginLeft: "40px" }} /> Patients
+        <FontAwesomeIcon icon={faUserNurse} style={{ fontSize: "15px", marginRight: "24px", marginLeft: "25px" }} /> {user?.email==="admin@admin.com"?"Patients":"Patient Details"}
       </NavLink>
       <NavLink to="/prescriptions" className="link" activeClassName="active">
-        <FontAwesomeIcon icon={faFileMedical} style={{ fontSize: "15px", marginRight: "26px", marginLeft: "40px" }} /> Prescriptions
+        <FontAwesomeIcon icon={faFileMedical} style={{ fontSize: "15px", marginRight: "26px", marginLeft: "25px" }} /> {user?.email==="admin@admin.com"?"Prescriptions":"Prescription Details"}
       </NavLink>
       <NavLink to="/appointments" className="link" activeClassName="active">
-        <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: "15px", marginRight: "22px", marginLeft: "40px" }} /> Appointments
+        <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: "15px", marginRight: "22px", marginLeft: "25px" }} /> {user?.email==="admin@admin.com"?"Appointments":"Appointment Details"}
       </NavLink>
+      {user?.email==="admin@admin.com" &&
+      <NavLink to="/requests" className="link" activeClassName="active">
+        <FontAwesomeIcon icon={faBell} style={{ fontSize: "15px", marginRight: "22px", marginLeft: "25px" }} /> Requests
+      </NavLink>
+}
 
       {/* Conditionally render logout button */}
       {isLoggedIn && logoutButton}

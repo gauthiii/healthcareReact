@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import doc from './doc.png';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode'; // Ensure jwt-decode is installed
+import CryptoJS from 'crypto-js';
+import { patients_api,api_username,patients_api_pwd } from './App';
+import './LoadingSpinner.css';
 
 function Login({ setIsLoggedIn, setUser,setAuthToken }) {
     const navigate = useNavigate();
     const [isAdminLogin, setAdminLogin] = useState(false);
     const [accessCode, setAccessCode] = useState('');
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("authToken");
@@ -25,16 +30,38 @@ function Login({ setIsLoggedIn, setUser,setAuthToken }) {
         navigate('/');
     };
 
-    const handleAdminLogin = () => {
-        if (accessCode === "YourAccessCode") { // Replace "YourAccessCode" with your real access code
-            localStorage.setItem("authToken", "adminLogin");
-            setAuthToken("adminLogin");
-            setIsLoggedIn(true);
-            setUser({'email':'admin@admin.com'});
-            navigate('/');
-        } else {
-            alert('Invalid access code.');
+    const handleAdminLogin = async () => {
+
+        try {
+
+            const basicAuth = 'Basic ' + btoa(api_username + ':' + patients_api_pwd);
+
+           
+          
+                const detailsResponse = await axios.get(`${patients_api}/users/id`, {
+                    headers: { Authorization: basicAuth,'Authorization-ID':"6686abdf82166a5cb283227b" }
+                });
+              
+                if (CryptoJS.SHA256(accessCode).toString(CryptoJS.enc.Hex) === detailsResponse.data.password) { // Replace "YourAccessCode" with your real access code
+                    localStorage.setItem("authToken", "adminLogin");
+                    setAuthToken("adminLogin");
+                    setIsLoggedIn(true);
+                    setUser(detailsResponse.data);
+                    navigate('/');
+        
+                    
+                    
+                } else {
+                    alert('Invalid access code.');
+                }
+         
+        } catch (error) {
+            console.error('Error fetching user details: ', error);
+            alert("Server is busy. Admin can't login");
         }
+
+
+       
     };
 
     return (
