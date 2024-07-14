@@ -176,6 +176,25 @@ function Patients({ authToken, user }) {
         }
     };
 
+    const handleRemovePatient = async (patientId) => {
+        if (window.confirm('Are you sure you want to remove this patient?')) {
+            try {
+                const basicAuth = 'Basic ' + btoa(api_username + ':' + patients_api_pwd);
+              
+                await axios.delete(`${patients_api}/patients/id`, {
+                    headers: { Authorization: basicAuth, 'Authorization-ID': patientId }
+                });
+
+                setPatients(prevPatients => prevPatients.filter(patient => patient.id !== patientId));
+                
+                alert('Patient removed successfully');
+            } catch (error) {
+                console.error('Error removing patient: ', error);
+                setErr('Error removing patient');
+            }
+        }
+    };
+
     const cellStyle = {
         minWidth: '250px',
         backgroundColor: 'lightblue',
@@ -427,7 +446,7 @@ function Patients({ authToken, user }) {
                         <>
 
 {err !== '' ? (<div style={{ }}>Unable to fetch Patient Data due to {err}</div>):
-                            <TableContainer component={Paper} sx={{ border: 2, width:1200, height:500 }}>
+                            <TableContainer component={Paper} sx={{ border: 2, width:1200, maxHeight:500 }}>
                                 <Table className='tab' sx={{ maxWidth: 650 }} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
@@ -445,8 +464,9 @@ function Patients({ authToken, user }) {
                                                     <TableCell 
                                                         key={index} 
                                                         sx={{ ...cellStyle, fontFamily: "Poppins" }}
-                                                        onClick={key === 'email' && value ? () => handleRemoveEmail(patient.id) : undefined}
-                                                        style={key === 'email' && value ? { cursor: 'pointer' } : {}}
+                                                        onClick={(key === 'email' && value )? () => handleRemoveEmail(patient.id) :
+                                                        (key === 'id' && value ) ? () => handleRemovePatient(patient.id) : undefined}
+                                                        style={(key === 'email' || key ==="id") && value ? { cursor: 'pointer' } : {}}
                                                     >
                                                         {value}
                                                     </TableCell>
